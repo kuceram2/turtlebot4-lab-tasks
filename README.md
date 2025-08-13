@@ -138,7 +138,8 @@ Add 'Camera' to the Displays tab and set the topic to image_raw.
 
 ### Color tracking
 
-https://github.com/kuceram2/turtlebot4-lab-tasks/blob/main/resource/color_tracking_vid.mp4
+<video controls src="resource/color_tracking_vid.mp4" title="Title"></video>
+
 
 ### QR code commands
 ## SLAM
