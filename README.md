@@ -90,6 +90,7 @@ For driving the robot using keyboard run:
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/<namespace>/cmd_vel
 ```
+This node publishes Twist messages to the specified topic, allowing it to drive around.
 Make sure to use the right namespace for the robot.
 ### BT Gamepad
 TODO
@@ -137,11 +138,31 @@ Add 'Camera' to the Displays tab and set the topic to image_raw.
 ![rviz camera](resource/rviz_camera.png)
 
 ### Color tracking
+Script [colour_tracking_openCV.py](src/my_tb_nodes/my_tb_nodes/colour_tracking_openCV.py) is a demo of using the robot to follow object of certain colour. The robot spins around looking for anything orange and then follows it.
+To run:
+```
+ros2 run my_tb_nodes colour_tracking --ros-args -p namespace:=<namespace>
+```
+This command creates a ros node, that shows the camera feed with detected color blobs and commands the robot by publishing Twist messages to /cmd_vel topic.
 
-<video controls src="resource/color_tracking_vid.mp4" title="Title"></video>
+**How it works:**
+The class OrangeBlobDetector inherits from Node class. This means it can interact with ROS. Topic subscriber reads camera feed from topic, then openCV library is used to detect blobs of specified color. Then based on the position of the blob within the frame, message is published to the /cmd_vel topic.
+
+![colour tracking](resource/colour_tracking/colour_tracking_img.png)
+
+
+**Demo video:** https://github.com/kuceram2/turtlebot4-lab-tasks/blob/main/resource/colour_tracking/color_tracking_vid.mp4
 
 
 ### QR code commands
+Script [qr_commands.py](src/my_tb_nodes/my_tb_nodes/qr_commands.py) drives the robot based on commands decoded from qr codes detected by the camera. In the demo the robot only reacts to four commands: start, left, right, stop. This allows the user to build a simple route for the robot to follow.
+The robot waits until a qr code with the command 'forward' is detected and then follows next commands.
+**Resources**
+* PDF with qr codes: [QR codes.pdf](resource/qr_code_detection/qr_codes.pdf)
+* 3D printable stand for qr code cards: [base.stl](resource/qr_code_detection/qr_code_base.stl), [stand.stl](resource/qr_code_detection/qr_code_stand.stl)
+
+**Demo video**
+<video controls src="resource/qr_code_detection/qr_commands_driving.mp4" title="qr commands driving"></video>
 ## SLAM
 ### Generating a map
 ### Autonomous navigation between points

@@ -30,7 +30,9 @@ setup(
             'nav_through_poses = my_tb_nodes.nav_through_poses:main',
             'relative_movements = my_tb_nodes.rleative_movements:main',
             'test_script = my_tb_nodes.test_script:main',
-            'qr_commands = my_tb_nodes.qr_commands:main'
+            'qr_commands = my_tb_nodes.qr_commands:main',
+            'colour_tracking = my_tb_nodes.colour_tracking_openCV:main',
+            
         ],
     },
 )

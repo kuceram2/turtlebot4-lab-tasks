@@ -10,7 +10,10 @@ import sys
 class OrangeBlobDetector(Node):
     def __init__(self):
         super().__init__('orange_blob_detector')
-        namespace = sys.argv[1]
+        self.declare_parameter('namespace', '')
+        namespace = self.get_parameter('namespace').get_parameter_value().string_value
+        
+        #namespace = sys.argv[1]  # <-- uncomment this if you want to run the file as raw python script 
         self.subscription = self.create_subscription(
             Image,
             f'/{namespace}/oakd/rgb/preview/image_raw',
@@ -22,7 +25,6 @@ class OrangeBlobDetector(Node):
         
         self.target_x = 0
         self.target_y = 0
-        self.res = 247
         
 
     def listener_callback(self, msg):
@@ -84,7 +86,7 @@ class OrangeBlobDetector(Node):
         self.target_x = target_x
         self.target_y = target_y                
         cv2.circle(frame, center=(target_x, target_y), radius=5, color=(0,255,0), thickness=6)
-        # Display
+        
         cv2.imshow("Camera Feed with Blobs", frame)
         self.get_logger().info(f"Target X: {self.target_x} Y: {self.target_y}")
         #cv2.imshow("Mask", mask)
