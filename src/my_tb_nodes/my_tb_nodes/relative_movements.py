@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# This script shows the usage of relative movements, this way you can 'hard code' a path for robot to follow
 import rclpy
 
 import time
